@@ -1,0 +1,26 @@
+#register-btn {
+    background-color: #3480eb; 
+    color: white; 
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#register-btn:hover {
+    background-color: #1d4e89; 
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+
+#login-btn {
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+#login-btn:hover {
+    background-color: #495057;
+    transform: scale(1.05);
+    cursor: pointer;
+}

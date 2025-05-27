@@ -1,0 +1,19 @@
+#add-parking{
+    background-color: #0078d7;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+    border-radius: 10px;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 5px;
+    width: 50%;
+    h1{
+        color: white;
+    }
+}
+#addParkingForm{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

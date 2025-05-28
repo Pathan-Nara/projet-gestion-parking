@@ -43,7 +43,8 @@
     </div>
 
 
-    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+
+    <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -51,35 +52,40 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form id="editUserForm">
-                        <input type="hidden" id="edit_user_id" name="user_id">
+                    <form id="editForm">
+                        <input type="hidden" id="userId" name="userId">
                         <div class="mb-3">
-                            <label for="edit_nom" class="form-label">Nom</label>
-                            <input type="text" class="form-control" id="edit_nom" name="nom" required>
+                            <label for="nom" class="form-label">Nom</label>
+                            <input type="text" class="form-control" id="nom" name="nom" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_email" class="form-label">Email</label>
-                            <input type="email" class="form-control" id="edit_email" name="email" required>
+                            <label for="prenom" class="form-label">Prénom</label>
+                            <input type="text" class="form-control" id="prenom" name="prenom" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_role" class="form-label">Rôle</label>
-                            <select class="form-select" id="edit_role" name="role" required>
-                                <option value="admin">Admin</option>
-                                <option value="user">User</option>
-                            </select>
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" name="email" required>
                         </div>
                         <div class="mb-3">
-                            <label for="edit_password" class="form-label">Nouveau mot de passe (laisser vide pour ne pas modifier)</label>
-                            <input type="password" class="form-control" id="edit_password" name="password">
+                            <label for="password" class="form-label">Mot de passe</label>
+                            <input type="password" class="form-control" id="password" name="password" placeholder="Laisser vide pour ne pas modifier">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="isAdmin" name="isAdmin">
+                            <label class="form-check-label" for="isAdmin">Administrateur</label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="isPremium" name="isPremium">
+                            <label class="form-check-label" for="isPremium">Premium</label>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" id="saveUserChanges">Enregistrer</button>
+                    <button type="button" class="btn btn-primary" id="updateUser">Enregistrer</button>
                 </div>
             </div>
         </div>
     </div>
-</body>
+
 <script src="_partials/js/adminUser.js"></script>

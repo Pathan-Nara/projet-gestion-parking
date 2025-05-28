@@ -43,10 +43,10 @@
             }
         }
         if($_GET['action'] == 'edit'){
-            $parkingId = cleanString($_POST['id']);
+            $parkingId = cleanString($_POST['parkingId']);
             $nom = cleanString($_POST['nom']);
-            $adresse = cleanString($_POST['lieu']);
-            $description = cleanString($_POST['editDescription']);
+            $adresse = cleanString($_POST['adresse']);
+            $description = cleanString($_POST['description']);
             $nb_places_voiture = cleanString($_POST['nb_places_voiture']);
             $nb_places_moto = cleanString($_POST['nb_places_moto']);
             $nb_places_velo = cleanString($_POST['nb_places_velo']);
@@ -71,10 +71,11 @@
             echo json_encode(['success' => "Parking modifié avec succès"]);
             exit();
         }
+        echo json_encode(['error' => "Action non reconnue"]);
+        exit();
         
     }
     
-
     require "view/adminParking.php";
 
 ?>

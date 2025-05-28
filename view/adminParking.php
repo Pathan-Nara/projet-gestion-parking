@@ -113,23 +113,6 @@
         </div>
     </div>
 
-    <style>
-    .modal.fade .modal-dialog {
-        transform: scale(0.8);
-        transition: transform 0.3s ease-out;
-    }
-    .modal.show .modal-dialog {
-        transform: scale(1);
-    }
-    .modal-content {
-        box-shadow: 0 5px 15px rgba(0,0,0,.5);
-        border-radius: 8px;
-    }
-    .modal-header {
-        border-top-left-radius: 8px;
-        border-top-right-radius: 8px;
-    }
-    </style>
 
 </body>
 <script src="_partials/js/adminParking.js"></script>

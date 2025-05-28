@@ -72,7 +72,7 @@
 
     function editParking($pdo, $parkingId, $nom, $adresse, $description, $nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion, $horaires) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "UPDATE parkingtable SET nom = :nom, adresse = :adresse, description = :description, nb_places_voiture = :nb_places_voiture, nb_places_moto = :nb_places_moto, nb_places_velo = :nb_places_velo, nb_places_camion = :nb_places_camion, horaires = :horaires WHERE id = :parkingId";
+        $query = "UPDATE parkingtable SET nom = :nom, lieu = :adresse, description = :description, nb_places_voiture = :nb_places_voiture, nb_places_moto = :nb_places_moto, nb_places_velo = :nb_places_velo, nb_places_camion = :nb_places_camion, horaires = :horaires WHERE id = :parkingId";
         
         $prep = $pdo->prepare($query);
         $prep->bindValue(':nom', $nom);
@@ -95,7 +95,7 @@
 
     function editTarif($pdo, $parkingId, $tarifperhour, $tarifperday) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "UPDATE tarifs SET tarif_per_hour = :tarifperhour, tarif_per_day = :tarifperday WHERE parking_id = :parkingId";
+        $query = "UPDATE tarifs SET prix_par_heure = :tarifperhour, prix_par_jour = :tarifperday WHERE parking_id = :parkingId";
         
         $prep = $pdo->prepare($query);
         $prep->bindValue(':tarifperhour', $tarifperhour, PDO::PARAM_INT);

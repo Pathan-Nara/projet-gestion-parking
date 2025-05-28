@@ -7,11 +7,11 @@
             <h1>Menu Administrateur</h1>
             <div class="container-fluid" id="admin-options">
                 <div class="container-fluid" style="display: flex; flex-direction: row; width: 100%; justify-content: space-around;">
-                    <a href="index.php?component=adminUsers" class="btn btn-admin btn-primary admin-option">Gestion des utilisateurs</a>
-                    <a href="index.php?component=adminCars" class="btn btn-admin btn-primary admin-option">Gestion des véhicules</a>
+                    <a href="index.php?component=adminUser" class="btn btn-admin btn-primary admin-option">Gestion des utilisateurs</a>
+                    <a href="index.php?component=adminCar" class="btn btn-admin btn-primary admin-option">Gestion des véhicules</a>
                 </div>
                 <div class="container-fluid" style="display: flex; flex-direction: row; width: 100%; justify-content: space-around;">
-                    <a href="index.php?component=adminReservations" class="btn btn-admin btn-primary admin-option">Gestion des réservations</a>
+                    <a href="index.php?component=adminReserv" class="btn btn-admin btn-primary admin-option">Gestion des réservations</a>
                     <a href="index.php?component=adminParking" class="btn btn-admin btn-primary admin-option">Gestion des parkings</a>
                 </div>    
             </div>

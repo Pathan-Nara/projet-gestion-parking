@@ -21,15 +21,15 @@
                     <?php foreach ($cars as $car): ?>
                         <?php $fullName = ($car['nom'] . ' ' . $car['prenom']); ?>
                         <tr>
-                            <td><?php echo $car['id']; ?></td>
+                            <td><?php echo $car['car_id']; ?></td>
                             <td><?php echo htmlspecialchars($car['model']); ?></td>
                             <td><?php echo htmlspecialchars($car['type']); ?></td>
                             <td><?php echo htmlspecialchars($car['imatriculation']); ?></td>
                             <td><?php echo htmlspecialchars($fullName); ?></td>
                             <td>
                                 <div class="btn-grp" style="display:flex; gap: 15px; align-items: center; justify-content: center;">
-                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $car['id'] ?>" id="edit" style="color: yellow;"></a>
-                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $car['id'] ?>" style="color: red;"></a>
+                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $car['car_id'] ?>" id="edit" style="color: yellow;"></a>
+                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $car['car_id'] ?>" style="color: red;"></a>
                                 </div>    
                             </td>
                         </tr>
@@ -42,3 +42,5 @@
         </div>
     </div>
 </body>
+
+<script src="_partials/js/adminCar.js"></script>

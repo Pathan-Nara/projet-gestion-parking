@@ -1,29 +1,4 @@
-function validateEmail(email) {
-    if (email.includes('@') && email.includes('.')) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-function checkPassword(password) {
-    if (password.length < 8) {
-        return "Le mot de passe doit contenir au moins 8 caractères";
-    }
-    if (!/[A-Z]/.test(password)) {
-        return "Le mot de passe doit contenir au moins une lettre majuscule";
-    }
-    if (!/[a-z]/.test(password)) {
-        return "Le mot de passe doit contenir au moins une lettre minuscule";
-    }
-    if (!/[0-9]/.test(password)) {
-        return "Le mot de passe doit contenir au moins un chiffre";
-    }
-    if (!/[!@#$%^&*]/.test(password)) {
-        return "Le mot de passe doit contenir au moins un caractère spécial";
-    }
-    return true;
-}
+import { validateEmail, checkPassword } from "../utils/function.js";
 
 const register = async (firstName, lastName, password, email) => {
     const formData = new URLSearchParams();
@@ -39,8 +14,7 @@ const register = async (firstName, lastName, password, email) => {
         method: "POST",
         body: formData,
     })
-    data = await response.json();
-    alert(data['success'] || data['error'] || "An error occurred");
+    const data = await response.json();
     return data;
 }
 
@@ -59,7 +33,7 @@ document.addEventListener('DOMContentLoaded', ()=> {
             const confirmPassword = document.getElementById('confirmPassword').value;
             const email = document.getElementById('email').value;
             if (firstName === "" || lastName === "" || password === "" || confirmPassword === "" || email === "") {
-                return;
+                return alert("Veuillez remplir tous les champs");
             }
             if (validateEmail(email) === false) {
                 alert("Invalid email format");

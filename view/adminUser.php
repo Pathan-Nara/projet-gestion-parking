@@ -37,7 +37,7 @@
                 </tbody>
             </table>
             <div class="container-fluid" style="display: flex; justify-content: end; flex-direction: row;">
-                <a href="#" class="btn btn-primary">Ajouter un Utilisateur</a>
+                <a href="index.php?component=adminAddUser" class="btn btn-primary">Ajouter un Utilisateur</a>
             </div>
         </div>
     </div>

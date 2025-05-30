@@ -52,7 +52,7 @@
     function editUser(PDO $pdo, $userId, $prenom, $nom, $email, $is_admin, $is_premium, $password){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         if ($password != null){
-            $query = "UPDATE users SET prenom = :prenom, nom = :nom, email = :email, is_admin = :is_admin, is_premium = :is_premium password = :password WHERE id = :userId";
+            $query = "UPDATE users SET prenom = :prenom, nom = :nom, email = :email, is_admin = :is_admin, is_premium = :is_premium, password = :password WHERE id = :userId";
             $passwordHash = password_hash($password, PASSWORD_BCRYPT);
         } else {
             $query = "UPDATE users SET prenom = :prenom, nom = :nom, email = :email, is_admin = :is_admin, is_premium = :is_premium WHERE id = :userId";

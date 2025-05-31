@@ -34,6 +34,7 @@
                     <option value="moto">Moto</option>
                     <option value="velo">Vélo</option>
                     <option value="camion">Camion</option>
+                    
                 </select>
             </div>
             <div class="d-grid gap-2 mt-3">

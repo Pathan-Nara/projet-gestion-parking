@@ -95,4 +95,24 @@
         }
     }
 
+    function addCar(PDO $pdo, $userId, $model, $marque, $type, $imatriculation, $motorisation){
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "INSERT INTO voiture (user_id, model, marque, type, imatriculation, motorisation) VALUES (:userId, :model, :marque, :type, :imatriculation, :motorisation)";
+        
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $prep->bindValue(':model', $model, PDO::PARAM_STR);
+        $prep->bindValue(':marque', $marque, PDO::PARAM_STR);
+        $prep->bindValue(':type', $type, PDO::PARAM_STR);
+        $prep->bindValue(':imatriculation', $imatriculation, PDO::PARAM_STR);
+        $prep->bindValue(':motorisation', $motorisation, PDO::PARAM_STR);
+        
+        try {
+            $prep->execute();
+            return true;
+        } catch (PDOException $e) {
+            return "Erreur lors de l'ajout de la voiture : " . $e->getMessage();
+        }
+    }
+
 ?>

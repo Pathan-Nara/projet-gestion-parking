@@ -1,5 +1,4 @@
-<?php
-
+<?php 
     function getParking($pdo){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "SELECT * FROM parkingtable";
@@ -19,21 +18,26 @@
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         $query = "DELETE FROM parkingtable WHERE id = :parkingId";
         $query2 = "DELETE FROM tarifs WHERE parking_id = :parkingId";
+        $query3 = "DELETE FROM place WHERE parking_id = :parkingId";
         
         $prep = $pdo->prepare($query);
         $prep2 = $pdo->prepare($query2);
+        $prep3 = $pdo->prepare($query3);
         $prep->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
         $prep2->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
+        $prep3->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
         
         try {
             $prep->execute();
             $prep2->execute();
+            $prep3->execute();
         } catch (PDOException $e) {
             echo "Erreur lors de la suppression du parking : " . $e->getMessage();
             return false;
         }
         $prep->closeCursor();
         $prep2->closeCursor();
+        $prep3->closeCursor();
         return true;
     }
 
@@ -92,6 +96,55 @@
             return false;
         }
     }
+    function addPlaces($pdo, $parkingId, $type, $nb_places){
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $query = "INSERT INTO place (parking_id, type_place, reserved) VALUES (:parkingId, :type, 0)";
+        
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
+        $prep->bindValue(':type', $type, PDO::PARAM_STR);
+        
+        try {
+            for ($i = 0; $i < $nb_places; $i++) {
+                $prep->execute();
+            }
+            return true;
+        } catch (PDOException $e) {
+            echo "Erreur lors de l'ajout des places : " . $e->getMessage();
+            return false;
+        }
+    }
+
+    function removePlaces($pdo, $parkingId, $type, $nb_places){
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $verif = $pdo->prepare("SELECT COUNT(*) FROM place WHERE parking_id = :parkingId AND type_place = :type AND reserved = 0");
+        $verif->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
+        $verif->bindValue(':type', $type, PDO::PARAM_STR);
+        try {
+            $verif->execute();
+            $count = $verif->fetchColumn();
+            if ($count < $nb_places) {
+                return false;
+            }
+        } catch (PDOException $e) {
+            echo "Erreur lors de la vérification des places : " . $e->getMessage();
+            return false;
+        }
+        $query = "DELETE FROM place WHERE parking_id = :parkingId AND type_place = :type AND reserved = 0 LIMIT :nb_places";
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
+        $prep->bindValue(':type', $type, PDO::PARAM_STR);
+        $prep->bindValue(':nb_places', $nb_places, PDO::PARAM_INT);
+        try {
+            $prep->execute();
+        } catch (PDOException $e) {
+            echo "Erreur lors de la suppression des places : " . $e->getMessage();
+            return false;
+        }
+        $prep->closeCursor();
+        return true;
+    }
+        
 
     function editTarif($pdo, $parkingId, $tarifperhour, $tarifperday) {
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -103,11 +156,13 @@
         $prep->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
         
         try {
-            return $prep->execute();
+            $prep->execute();
         } catch (PDOException $e) {
             echo "Erreur lors de la modification du tarif : " . $e->getMessage();
             return false;
         }
+        $prep->closeCursor();
+        return true;
     }
 
 ?>

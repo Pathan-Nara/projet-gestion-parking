@@ -29,6 +29,12 @@ if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         
         $parkingId = getParkingIdByName($pdo, $nom);
 
+        if(addPlaces($pdo, $parkingId['id'], $nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion) != true){
+            $error[] = "Erreur lors de l'ajout des places";
+            echo json_encode(['error' => $error]);
+            exit();
+        }
+
         if(addTarif($pdo, $parkingId['id'], $tarifperhour, $tarifperday) != true){
             $error[] = "Erreur lors de l'ajout du tarif";
             echo json_encode(['error' => $error]);

@@ -24,3 +24,22 @@ export function checkPassword(password) {
     }
     return true;
 }
+
+export function evaluation(div){
+
+    const note = parseFloat(div.getAttribute("data-eval"));
+    const full = Math.floor(note);
+    const half = note % 1 >= 0.5 ? 1 : 0;
+    const stars = []
+
+    for (let i = 0; i < 5; i++){
+        if (i<full){
+            stars.push('<i class="fa-solid fa-star"></i>');
+        } else if( i === full && half) {
+            stars.push('<i class="fa-solid fa-star-half-stroke"></i>');
+        } else {
+            stars.push('<i class="fa-regular fa-star"></i>');
+        }
+    }
+    div.innerHTML = stars.join('');   
+}

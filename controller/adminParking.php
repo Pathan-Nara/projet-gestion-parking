@@ -9,6 +9,7 @@
     require "model/adminParking.php";
 
     $parkings = getParking($pdo);
+    
 
     if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
         $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'
@@ -28,6 +29,7 @@
             echo json_encode(['success' => "Parking supprimé avec succès"]);
             exit();
         } 
+
         if($_GET['action'] == 'getParking'){
             $parkingId = cleanString($_POST['parkingId']);
             $error = [];
@@ -42,6 +44,7 @@
                 exit();
             }
         }
+
         if($_GET['action'] == 'edit'){
             $parkingId = cleanString($_POST['parkingId']);
             $nom = cleanString($_POST['nom']);
@@ -55,6 +58,36 @@
             $tarifperhour = cleanString($_POST['tarifperhour']);
             $tarifperday = cleanString($_POST['tarifperday']);
             $error = [];
+
+            $parkingBefore = getParkingById($pdo, $parkingId);
+
+            $newVoiture = -($parkingBefore['nb_places_voiture'] - $nb_places_voiture);
+            $newMoto = -($parkingBefore['nb_places_moto'] - $nb_places_moto);
+            $newVelo = -($parkingBefore['nb_places_velo'] - $nb_places_velo);
+            $newCamion = -($parkingBefore['nb_places_camion'] - $nb_places_camion );
+
+            $tab = [
+                'voiture' => $newVoiture,
+                'moto' => $newMoto,
+                'velo' => $newVelo,
+                'camion' => $newCamion
+            ];
+
+            foreach ($tab as $type => $value) {
+                if ($value < 0){
+                    if(removePlaces($pdo, $parkingId, $type, -$value) != true) {
+                        $error[] = "Erreur lors de la suppression des places de type $type";
+                        echo json_encode(['error' => $error]);
+                        exit();
+                    }
+                } elseif($value > 0) {
+                    if(addPlaces($pdo, $parkingId, $type, $value) != true) {
+                        $error[] = "Erreur lors de l'ajout des places de type $type";
+                        echo json_encode(['error' => $error]);
+                        exit();
+                    }
+                }
+            }
 
             if (editParking($pdo, $parkingId, $nom, $adresse, $description, $nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion, $horaires) != true) {
                 $error[] = "Erreur lors de la modification du parking";

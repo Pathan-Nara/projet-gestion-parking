@@ -26,6 +26,27 @@
         return true;
     }
 
+    function addPlaces($pdo, $parkingId, $nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion) {
+        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        
+        $query = "INSERT INTO place (parking_id, type_place) VALUES (:parkingId, :type)";
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':parkingId', $parkingId, PDO::PARAM_INT);
+        $types = ['voiture', 'moto', 'velo', 'camion'];
+        $nb_places = [$nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion];
+        try {
+            foreach($types as $i => $type){
+                for($j = 0; $j < $nb_places[$i]; $j++) {
+                    $prep->bindValue(':type', $type, PDO::PARAM_STR);
+                    $prep->execute();
+                }
+            }
+        } catch (PDOException $e) {
+            return "Erreur lors de l'ajout des places : " . $e->getMessage();
+        }
+        $prep->closeCursor();
+        return true;
+    }
 
     function getParkingIdByName($pdo, $name){
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

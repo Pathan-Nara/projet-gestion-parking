@@ -13,7 +13,7 @@
             <?php if(!empty($car) && empty($reservation) ): ?>
                 <div class="container-fluid" style="display: flex; justify-content: center; align-items: center; flex-direction: column; height:100%;">
                     <h2 style="color: white;">Vous n'avez pas de reservation</h2>
-                    <button type="button" class="btn btn-primary" id="addReservationBtn">Ajouter une reservation</button>
+                    <a href="index.php?component=booking" class="btn btn-primary" id="addReservationBtn">Ajouter une reservation</a>
                 </div>
             <?php endif; ?>
             <?php if(!empty($car) && !empty($reservation)): ?>

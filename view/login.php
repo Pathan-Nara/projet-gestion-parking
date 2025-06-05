@@ -9,13 +9,13 @@
     <form id="login-form">
         <div class="container-fluid" id="containerPrincipal" style="">
             <div class="container" id="containerLogin">
-                <h1 style="color: white;">Login</h1>
+                <h1 style="color: white;">Veuillez vous connecter</h1>
                 <div class="mb-3">
-                    <label for="username" style="color: white;" class="form-label">Username</label>
+                    <label for="username" style="color: white;" class="form-label">Email</label>
                     <input type="text" class="form-control" id="username" name="username">
                 </div>
                 <div class="mb-3">
-                    <label for="password" style="color: white;" class="form-label" >Password</label>
+                    <label for="password" style="color: white;" class="form-label" >Mot de passe</label>
                     <input type="password" class="form-control" id="password" name="password">
                 </div>
                 <div style="display: flex; justify-content: space-between;"> 

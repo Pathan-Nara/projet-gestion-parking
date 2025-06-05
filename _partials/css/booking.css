@@ -1,0 +1,103 @@
+
+#bookingContainer {
+    background-color: #0078d7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 10px;
+    margin-top: 60px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: rgb(0, 0, 0) -5px 5px 30px;
+    h1{
+        margin-top: 20px;
+        color: white;
+        margin-bottom: 10px;
+    }
+  h2 {
+    color: white;
+    text-align: center;
+  }
+}
+
+#parkingListContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    
+    margin-bottom: 20px;
+    border-collapse: collapse;
+}
+
+#parkingCard {
+    background-color: #266191;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    width: 80%;
+    height: 100%;
+    margin: 10px;
+    border-radius: 10px;
+    border: 1px solid #dddddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+    p{
+        color: white;
+        font-size: 1.2em;
+    }
+
+    #infoParking{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 2px solid white;
+    }
+
+    #eval{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        p{
+            margin-bottom: 0px;
+        }
+        .stars {
+            display: flex;
+            flex-direction: row;
+            
+            align-items: center;
+            justify-content: center;
+            color: gold;
+            font-size: 1.5em;
+        }   
+    }
+
+    #nbPlaces{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 2px solid white;
+    }
+
+    #parking-tarifs{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        width: 100%;
+        padding: 10px;
+        border-bottom: 2px solid white;
+    }
+
+    h2{
+        border-bottom: 1px solid white;
+        padding-bottom: 10px;
+    }
+}

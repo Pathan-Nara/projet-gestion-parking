@@ -67,7 +67,6 @@
         try {
             $prep->execute();
         } catch (PDOException $e) {
-            echo "Erreur lors de la récupération du tarif : " . $e->getMessage();
             return null;
         }
         $result = $prep->fetch(PDO::FETCH_ASSOC);

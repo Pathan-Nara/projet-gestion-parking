@@ -6,7 +6,7 @@
 
         $query = "INSERT INTO parkingtable (nom, lieu, description, nb_places_voiture, nb_places_moto, nb_places_velo, nb_places_camion, horaires) 
                   VALUES (:nom, :adresse, :description, :nb_places_voiture, :nb_places_moto, :nb_places_velo, :nb_places_camion, :horaires)";
-        
+
         $prep = $pdo->prepare($query);
         $prep->bindValue(':nom', $nom, PDO::PARAM_STR);
         $prep->bindValue(':adresse', $adresse, PDO::PARAM_STR);
@@ -22,8 +22,9 @@
         } catch(PDOException $e) {
             return "Erreur lors de l'ajout du parking : " . $e->getMessage();
         }
+        $parkingId = $pdo->lastInsertId();
         $prep->closeCursor();
-        return true;
+        return $parkingId;
     }
 
     function addPlaces($pdo, $parkingId, $nb_places_voiture, $nb_places_moto, $nb_places_velo, $nb_places_camion) {
@@ -48,19 +49,32 @@
         return true;
     }
 
-    function getParkingIdByName($pdo, $name){
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $query = "SELECT id FROM parkingtable WHERE nom = :name";
+    // function getParkingIdByName($pdo, $name){
+    //     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     $query = "SELECT id FROM parkingtable WHERE nom = :name";
+    //     $prep = $pdo->prepare($query);
+    //     $prep->bindValue(':name', $name, PDO::PARAM_STR);
+    //     try{
+    //         $prep->execute();
+    //     } catch (PDOException $e) {
+    //         return "Erreur lors de la récupération de l'ID du parking : " . $e->getMessage();
+    //     }
+    //     $result = $prep->fetch(PDO::FETCH_ASSOC);
+    //     $prep->closeCursor();
+    //     return $result;
+    // }
+
+    function getParkingName($pdo){
+        $query = "SELECT nom FROM parkingtable";
         $prep = $pdo->prepare($query);
-        $prep->bindValue(':name', $name, PDO::PARAM_STR);
-        try{
+        try {
             $prep->execute();
         } catch (PDOException $e) {
-            return "Erreur lors de la récupération de l'ID du parking : " . $e->getMessage();
+            return "Erreur de connexion : " . $e->getMessage();
         }
-        $result = $prep->fetch(PDO::FETCH_ASSOC);
+        $response = $prep->fetchAll(PDO::FETCH_ASSOC);
         $prep->closeCursor();
-        return $result;
+        return $response;
     }
 
     function addTarif($pdo, $parkingId, $tarifperhour, $tarifperday) {

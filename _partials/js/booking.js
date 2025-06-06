@@ -39,6 +39,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
     reservationBtn.forEach(btn => {
         btn.addEventListener("click", async (e) => {
+            const id = btn.getAttribute("data-pId");
+            document.getElementById("parkingId").value = id;
+            console.log("ID du parking:", id);
             e.preventDefault();
             console.log("Réservation en cours");
             horairesRes.innerHTML = "";

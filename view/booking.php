@@ -31,7 +31,7 @@
                                 <p>Tarif a l'heure: <?php echo cleanString($parking['prix_par_heure']); ?> €</p>
                                 <p>Tarif a la journée: <?php echo cleanString($parking['prix_par_jour']); ?> €</p>
                             </div>
-                            <button class="btn btn-primary reservation" data-pId="<?php echo $parking['id'] ?>">Réserver</button>
+                            <button class="btn btn-primary reservation" data-name="<?php echo $parking['nom'] ?>" data-pId="<?php echo $parking['parking_id'] ?>">Réserver</button>
                         </div>
                     <?php endforeach; ?>
                 </div>
@@ -53,42 +53,62 @@
                     <div class="mb-3">
                         <label for="vehicule" class="form-label">Quel vehicule souhaitez-vous garer ?</label>
                         <select class="form-select" id="vehicule" name="vehicule" required>
+                            <option value="" selected disabled>Choisir un vehicule</option>
                             <?php foreach ($voiture as $v): ?>
                                 <option value="<?php echo $v['id']; ?>"> <?php echo $v['model'] ?>  </option>
                             <?php endforeach; ?>
                         </select>
                     </div>
+                    <div class="mb-3" id="choixPlace">
+                    </div>
                     <div class="mb-3">
                         <container class="row">
                             <radio class="col-md-3">
-                                <input type="radio" class="form-check-input" name="type" id="resHeure" value="resHeure">
+                                <input type="radio" class="form-check-input" name="type" id="resHeure" value="hour">
                                 <label class="form-check-label" for="resHeure">Reserver a l'heure</label>
                             </radio>
                             <radio class="col-md-3">
-                                <input type="radio" class="form-check-input" name="type" id="resJour" value="resJour">
+                                <input type="radio" class="form-check-input" name="type" id="resJour" value="day">
                                 <label class="form-check-label" for="resJour">Reserver a la journée</label>
                             </radio>
                         </container>
                     </div>
-                    <div class="mb-3" id="horairesRes">
-                        
-
-                        <div id="resJourDiv" style="display:none;">
-                            <label for="dateDebut" class="form-label">Date de début:</label>
-                            <input type="date" class="form-control" id="dateDebut" name="dateDebut">
-                            
-                            <label for="dateFin" class="form-label mt-2">Date de fin:</label>
-                            <input type="date" class="form-control" id="dateFin" name="dateFin">
-                        </div>
-                    </div>
+                    <div class="mb-3" id="horairesRes"></div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fermer</button>
-                <button type="submit" class="btn btn-primary" id="submitReservation">Réserver</button>
+                <button type="submit" class="btn btn-primary" id="bookingBtn">Réserver</button>
             </div>
         </div>
     </div>
+</div>
+<div class="modal fade" id="paymentModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Paiement</h5>
+        <a id="backBtn" href="#">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+      </div>
+      <div class="modal-body">
+        <div class="mb-4">
+          <h6>Récapitulatif</h6>
+          <p>Parking: <span id="recap-parking"></span></p>
+          <p>Dates: <span id="recap-dates"></span></p>
+          <p>Total: <span id="recap-total"></span></p>
+        </div>
+
+        <form id="payment-form">
+          <div id="card-element" class="mb-3"></div>
+          <div id="card-errors" class="text-danger mb-3"></div>
+          <button id="submit-payment" class="btn btn-primary w-100">Payer maintenant</button>
+          <button id="register-reservation" class="btn btn-secondary w-100 mt-2">Payer plus tard</button>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 

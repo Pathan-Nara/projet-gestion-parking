@@ -17,7 +17,36 @@
                 </div>
             <?php endif; ?>
             <?php if(!empty($car) && !empty($reservation)): ?>
-                
+                <div class="container-fluid" style="display: flex; justify-content: center; align-items: center; flex-direction: column; height:100%;">
+                    <h2 style="color: white;">Vos reservations</h2>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Parking</th>
+                                <th>Type de véhicule</th>
+                                <th>Date de début</th>
+                                <th>Date de fin</th>
+                                <th>Prix total</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($reservation as $res): ?>
+                                    <tr>
+                                        <td><?php echo $res['nom']; ?></td>
+                                        <td><?php echo $res['voiture_id']; ?></td>
+                                        <td><?php echo $res['arrive']; ?></td>
+                                        <td><?php echo date("Ymd", $res['depart']); ?></td>
+                                        <td><?php echo $res['prix']; ?> €</td>
+                                        <td>
+                                            <a href="#" id="payer" class="btn btn-success">Payer</a>
+                                            <a href="#" id="annuler" class="btn btn-danger">Annuler</a>
+                                        </td>
+                                    </tr>
+                            <?php endforeach; ?>
+                        </tbody>
+                    </table>
+                </div>
             <?php endif; ?>
     </div>
 

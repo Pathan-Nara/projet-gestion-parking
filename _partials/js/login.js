@@ -14,7 +14,7 @@ const login = async (username, password) => {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const loginBtn = document.getElementById("login-btn");
+    // const loginBtn = document.getElementById("login-btn");
     const registerBtn = document.getElementById("register-btn");
     const loginForm = document.getElementById("login-form");
 

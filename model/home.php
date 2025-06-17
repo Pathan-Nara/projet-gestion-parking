@@ -16,7 +16,7 @@
     }
 
     function getReservation($pdo, $id){
-        $query = "SELECT * FROM reservations WHERE user_id = :id";
+        $query = "SELECT * FROM reservations JOIN place ON reservations.place_id = place.id JOIN parkingtable ON place.parking_id = parkingtable.id WHERE reservations.user_id = :id";
         $prep = $pdo->prepare($query);
         $prep->bindValue(':id', $id, PDO::PARAM_INT);
         try{

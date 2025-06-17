@@ -4,6 +4,7 @@
     require "_includes/database.php";
     require "_includes/function/cleanstring.php";
     require "_partials/errors.php";
+    require_once "vendor/autoload.php";
     
 
     if(isset($_GET['deconnect'])){
@@ -11,6 +12,8 @@
         header('Location: index.php');
         exit();
     }
+
+    
 
     if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
     $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest'

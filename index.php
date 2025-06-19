@@ -5,6 +5,8 @@
     require "_includes/function/cleanstring.php";
     require "_partials/errors.php";
     require_once "vendor/autoload.php";
+    require_once "config/configStripe.php";
+    
     
 
     if(isset($_GET['deconnect'])){

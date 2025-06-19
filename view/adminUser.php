@@ -1,12 +1,8 @@
 <link href="_partials/css/adminUser.css" rel="stylesheet">
 
-<body class="container-fluid" style="background-color:rgb(38, 97, 145); width:100%; margin:0; padding:0; display: flex; justify-content: center; flex-direction:column;" >
     <div class="container" id="dashboard">
         <div class="container-fluid" id="user-list">
             <h1>Gestion des Utilisateurs</h1>
-            <div class="container-fluid" style="display: flex; justify-content: end; flex-direction: row;">
-                <input class="form-control" style="width:20%" type="search" placeholder="Chercher un utilisateur" aria-label="Search">
-            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -28,15 +24,15 @@
                             <td><?php echo ($user['is_premium'] == 1) ? "Oui" : "Non"; ?></td>
                             <td>
                                 <div class="btn-grp" style="display:flex; gap: 15px; align-items: center; justify-content: center;">
-                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $user['id'] ?>" id="edit" style="color: yellow;"></a>
-                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $user['id'] ?>" style="color: red;"></a>
+                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $user['id'] ?>" id="edit"></a>
+                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $user['id'] ?>"></a>
                                 </div>    
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="container-fluid" style="display: flex; justify-content: end; flex-direction: row;">
+            <div class="container-fluid">
                 <a href="index.php?component=adminAddUser" class="btn btn-primary">Ajouter un Utilisateur</a>
             </div>
         </div>

@@ -9,8 +9,8 @@
         $lastName = cleanString($_POST['lastName']);
         $password = cleanString($_POST['password']);
         $email = cleanString($_POST['email']);
-        $is_admin = isset($_POST['is_admin']) ? 1 : 0;
-        $is_premium = isset($_POST['is_premium']) ? 1 : 0;
+        $is_admin = $_POST['is_admin'];
+        $is_premium = $_POST['is_premium'];
         $error = [];
         if( getUserByEmail($pdo, $email) != null){
             $error[] = "Un utilisateur avec cette adresse e-mail existe déjà";

@@ -1,6 +1,7 @@
 <?php
 
     require "model/booking.php";
+    require "model/payment.php";
 
     $parkings = getParking($pdo);
     $reservation = [];
@@ -102,8 +103,84 @@
                 exit();
             }
         }
+
+        if ($_GET['action'] == 'payment'){
+
+            $prix = cleanString($_POST['prix']);
+            $reservationData = [
+                'user_id' => $_SESSION['id'],
+                'parking_id' => cleanString($_POST['parkingId']),
+                'vehicule_id' => cleanString($_POST['vehicule']),
+                'place_id' => cleanString($_POST['place']),
+                'type' => cleanString($_POST['type']),
+                'heure_debut' => cleanString($_POST['heureDebut']) ?? null,
+                'heure_fin' => cleanString($_POST['heureFin']) ?? null,
+                'date_debut' => cleanString($_POST['dateDebut']) ?? null,
+                'date_fin' => cleanString($_POST['dateFin']) ?? null,
+                'prix' => cleanString($_POST['prix'])
+            ];
+            
+            $session = \Stripe\Checkout\Session::create([
+                'payment_method_types' => ['card'],
+                'line_items' => [[
+                    'price_data' => [
+                        'currency' => 'eur',
+                        'product_data' => ['name' => 'Réservation de place de parking'],
+                        'unit_amount' => $reservationData['prix'] * 100,
+                    ],
+                    'quantity' => 1,
+                ]],
+                'mode' => 'payment',
+                'success_url' => "http://127.0.0.1/projet_fin_d'ann%C3%A9e/index.php?component=booking&action=success&session_id={CHECKOUT_SESSION_ID}",
+                'cancel_url' => "http://127.0.0.1/projet_fin_d'ann%C3%A9e/index.php?component=booking",
+                'metadata' => $reservationData
+            ]);
+
+            echo json_encode(['id' => $session->id]);
+            exit();
+            
+        }
         
     }
+    if(isset($_GET['action'])) {
+        if ($_GET['action'] == 'success') {
+            $session_id = $_GET['session_id'] ?? null;
+            
+            if ($session_id) {
+                // Récupérer la session Stripe avec toutes les infos
+                $session = \Stripe\Checkout\Session::retrieve($session_id);
+                
+                // Vérifier que le paiement est bien validé
+                if ($session->payment_status === 'paid') {
+                    // Paiement validé ! Récupérer les métadonnées
+                    $metadata = $session->metadata;
+                    $userId = $metadata->user_id;
+                    $parkingId = $metadata->parking_id;
+                    $vehiculeId = $metadata->vehicule_id;
+                    $placeId = $metadata->place_id;
+                    $type = $metadata->type;
+                    $heureDebut = $metadata->heure_debut ? strtotime($metadata->heure_debut) : null;
+                    $heureFin = $metadata->heure_fin ? strtotime($metadata->heure_fin) : null;
+                    $dateDebut = $metadata->date_debut ? strtotime($metadata->date_debut) : null;
+                    $dateFin = $metadata->date_fin ? strtotime($metadata->date_fin) : null;
+                    $prix = $metadata->prix;
+                    $is_paid = 1;
+                    var_dump("userId: $userId, parkingId: $parkingId, vehiculeId: $vehiculeId, placeId: $placeId, type: $type, heureDebut: $heureDebut, heureFin: $heureFin, dateDebut: $dateDebut, dateFin: $dateFin, prix: $prix");
+                    if($type == 'day') {
+                        var_dump(addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid));
+                        // if(addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid) == true){
+                        //     var_dump("Réservation ajoutée avec succès");
+                        // }else{
+                        //     var_dump("Erreur lors de l'ajout de la réservation");
+                        // };
+                    } else {
+                        addReservation($pdo, $placeId, $vehiculeId, $userId, $heureDebut, $heureFin, $prix, $is_paid);
+                    }
+                }   
+            }   
+        }
+    }
+
     require "view/booking.php";
 
 ?>

@@ -13,6 +13,47 @@ const reservation = {
     prix: null,
 }
 
+async function initStripePayment(infos){
+    const stripe = Stripe(PUBLIC_STRIPE);
+    const formData = new URLSearchParams();
+    formData.append("prix", infos);
+    formData.append("parkingId", infos.parkingId),
+    formData.append("vehicule", infos.vehicule),
+    formData.append("place", infos.place),
+    formData.append("type", infos.type),
+    formData.append("heureDebut", infos.heureDebut),
+    formData.append("heureFin", infos.heureFin),
+    formData.append("dateDebut", infos.dateDebut),
+    formData.append("dateFin", infos.dateFin),
+    formData.append("prix", infos.prix)
+    try {
+        const response = await fetch('index.php?component=booking&action=payment', {
+            method: "POST",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData,
+        });
+        const data = await response.json();
+
+        console.log("Réponse de la création de session Stripe:", data);
+
+        if(data.id){
+            stripe.redirectToCheckout({
+                sessionId: data.id
+            })
+        } else {
+            alert("Erreur lors de la création de session Stripe : " + data.error);
+        }
+    }
+    catch (error) {
+        console.error("Erreur lors de la création de session Stripe:", error);
+        alert("Erreur lors de la création de session Stripe : " + error.message);
+    }
+    
+
+}
+
 async function addReservation(parkingId, vehicule, place, type, heureDebut, heureFin, dateDebut, dateFin, prix) {
     const formData = new URLSearchParams();
     formData.append("parkingId", parkingId);
@@ -176,6 +217,7 @@ async function updatePrice(){
 
 document.addEventListener("DOMContentLoaded", () => {
     const editModal = new bootstrap.Modal(document.getElementById('editModal'));
+    const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
     const editForm = document.getElementById("editForm");
     const reservationBtn = document.querySelectorAll(".reservation");
     const resHeure = document.getElementById("resHeure");
@@ -185,6 +227,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const horairesRes = document.getElementById("horairesRes");
     const bookingBtn = document.getElementById("bookingBtn");
     const laterBtn = document.getElementById("register-reservation");
+    const paymentBtn = document.getElementById("submit-payment");
     
 
 
@@ -306,7 +349,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 document.getElementById("recap-dates").textContent = reservation.dateDebut + " - " + reservation.dateFin;
             }
             document.getElementById("recap-total").textContent = reservation.prix + " €";
-            const paymentModal = new bootstrap.Modal(document.getElementById('paymentModal'));
             paymentModal.show();
             document.getElementById('backBtn').addEventListener('click', (e) => {
                 e.preventDefault();
@@ -316,6 +358,15 @@ document.addEventListener("DOMContentLoaded", () => {
         }
         
     });
+
+    paymentBtn.addEventListener("click", async (e) => {
+        e.preventDefault();
+        console.log("Paiement en cours");
+        paymentModal.hide();
+        initStripePayment(reservation);
+
+    });
+        
 
     laterBtn.addEventListener("click", async (e) => {
         e.preventDefault();

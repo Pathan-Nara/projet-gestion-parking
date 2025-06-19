@@ -46,6 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
             alert("Les mots de passe ne correspondent pas");
             return;
         }
+
         const response = await addUser(firstName, lastName, password, email, isAdmin, isPremium);
         const data = await response.json();
         if (data.success) {

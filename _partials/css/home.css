@@ -1,16 +1,568 @@
-#dashboard{
-    background-color: #0078d7;
-    display: flex;
-    margin-top: 50px;
-    width: 50%;
-    height: 480px;
-    border-radius: 10px;
-    flex-direction: column;
-    align-items: center;
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+/* Variables CSS cohérentes avec le design système */
+:root {
+  --primary-blue: #2E5F8C;
+  --secondary-blue: #4A90BF;
+  --accent-blue: #87CEEB;
+  --dark-blue: #1E3A52;
+  --light-blue: #E6F3FF;
+  --white: #FFFFFF;
+  --light-gray: #F8F9FA;
+  --border-gray: #E1E5E9;
+  --text-dark: #2C3E50;
+  --yellow-accent: #FFD700;
+  --yellow-hover: #FFC700;
+  --success-green: #10B981;
+  --success-green-hover: #059669;
+  --danger-red: #EF4444;
+  --danger-red-hover: #DC2626;
+  --shadow: 0 10px 25px rgba(46, 95, 140, 0.15);
+  --shadow-hover: 0 15px 35px rgba(46, 95, 140, 0.25);
+  --shadow-card: 0 8px 32px rgba(46, 95, 140, 0.12);
+  --gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  --gradient-light: linear-gradient(135deg, rgba(46, 95, 140, 0.1) 0%, rgba(74, 144, 191, 0.1) 100%);
+  --border-radius: 16px;
+  --border-radius-lg: 20px;
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-#dashboard h1{
-    color: white;
-    margin-top: 20px;
-    font-size: 30px;
+/* Reset et styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gradient) !important;
+  min-height: 100vh;
+  color: var(--text-dark);
+  overflow-x: hidden;
+}
+
+/* Container principal du dashboard */
+#dashboard {
+  padding: 2rem !important;
+  min-height: calc(100vh - 130px);
+  position: relative;
+}
+
+#dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 80% 20%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Titre principal */
+#dashboard h1 {
+  color: var(--white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1;
+}
+
+#dashboard h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 4px;
+  background: var(--yellow-accent);
+  border-radius: 2px;
+}
+
+/* États vides - Cards modernes */
+.container-fluid h2 {
+  color: var(--white) !important;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-bottom: 2rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Container des états vides - CORRECTION */
+/* Création d'un wrapper pour les états vides */
+#dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style pour les sections d'état vide */
+#dashboard .container-fluid:empty + h2,
+#dashboard h2:contains("vehicule"),
+#dashboard h2:contains("reservation") {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 3rem 2rem !important;
+  margin: 2rem auto !important;
+  max-width: 600px !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+/* Alternative: créer un wrapper pour chaque section d'état vide */
+#dashboard .empty-state {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 3rem 2rem !important;
+  margin: 2rem auto !important;
+  max-width: 600px !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#dashboard .empty-state::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+/* Style direct pour tous les container-fluid dans dashboard sauf ceux avec ID */
+#dashboard > .container-fluid:not([id]) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 3rem 2rem !important;
+  margin: 2rem auto !important;
+  max-width: 600px !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+#dashboard > .container-fluid:not([id])::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+/* Alternative - cibler par contenu pour plus de précision */
+.container-fluid:has(h2:contains("vehicule")),
+.container-fluid:has(h2:contains("reservation")) {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 3rem 2rem !important;
+  margin: 2rem auto !important;
+  max-width: 600px !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.container-fluid:has(h2:contains("vehicule"))::before,
+.container-fluid:has(h2:contains("reservation"))::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+/* Fallback pour navigateurs sans support :has() */
+@supports not selector(:has(*)) {
+  #dashboard .container-fluid {
+    background: rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(20px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    border-radius: var(--border-radius-lg) !important;
+    padding: 3rem 2rem !important;
+    margin: 2rem auto !important;
+    max-width: 600px !important;
+    box-shadow: var(--shadow-card) !important;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  #dashboard .container-fluid::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient);
+  }
+  
+  /* Exception pour le dashboard principal et la table de réservations */
+  #dashboard,
+  #reservation-table {
+    background: transparent !important;
+    backdrop-filter: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 2rem !important;
+    margin: 0 !important;
+    max-width: none !important;
+    box-shadow: none !important;
+    display: block !important;
+  }
+  
+  #dashboard::before {
+    background: 
+      radial-gradient(circle at 20% 80%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(135, 206, 235, 0.1) 0%, transparent 50%);
+  }
+  
+  #reservation-table::before {
+    display: none;
+  }
+}
+
+/* Boutons principaux */
+.btn {
+  padding: 0.875rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  font-family: inherit;
+  text-transform: none;
+  letter-spacing: 0.02em;
+}
+
+.btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.btn:hover::before {
+  left: 100%;
+}
+
+.btn-primary {
+  background: var(--gradient);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(46, 95, 140, 0.3);
+  border: 2px solid transparent;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(46, 95, 140, 0.4);
+  color: var(--white);
+}
+
+.btn-success {
+  background: linear-gradient(135deg, var(--success-green) 0%, #34D399 100%);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+}
+
+.btn-success:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(16, 185, 129, 0.4);
+  color: var(--white);
+}
+
+.btn-danger {
+  background: linear-gradient(135deg, var(--danger-red) 0%, #F87171 100%);
+  color: var(--white);
+  box-shadow: 0 6px 20px rgba(239, 68, 68, 0.3);
+}
+
+.btn-danger:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(239, 68, 68, 0.4);
+  color: var(--white);
+}
+
+/* Table des réservations */
+#reservation-table {
+  background: rgba(255, 255, 255, 0.95) !important;
+  backdrop-filter: blur(20px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: var(--border-radius-lg) !important;
+  padding: 2.5rem !important;
+  margin: 2rem auto !important;
+  max-width: 95% !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+}
+
+#reservation-table::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: var(--gradient);
+}
+
+#reservation-table h2 {
+  color: var(--text-dark) !important;
+  margin-bottom: 2rem;
+  text-shadow: none;
+}
+
+#reservation-table #addReservationBtn {
+  margin-bottom: 2rem;
+}
+
+/* Styles de table modernisés */
+.table {
+  background: transparent;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  margin: 0;
+}
+
+.table thead {
+  background: var(--gradient);
+  color: var(--white);
+}
+
+.table thead th {
+  padding: 1.25rem 1rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: none;
+  color: var(--white);
+}
+
+.table tbody tr {
+  background: var(--white);
+  transition: var(--transition);
+  border: none;
+}
+
+.table tbody tr:nth-child(even) {
+  background: rgba(46, 95, 140, 0.02);
+}
+
+.table tbody tr:hover {
+  background: rgba(46, 95, 140, 0.05);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 15px rgba(46, 95, 140, 0.1);
+}
+
+.table tbody td {
+  padding: 1.25rem 1rem;
+  font-weight: 500;
+  color: var(--text-dark);
+  border: none;
+  border-bottom: 1px solid rgba(46, 95, 140, 0.1);
+  vertical-align: middle;
+}
+
+.table tbody td:last-child {
+  display: flex;
+  gap: 0.75rem;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  #dashboard {
+    padding: 1.5rem !important;
+  }
+  
+  #dashboard h1 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 992px) {
+  #dashboard h1 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  #dashboard > .container-fluid:not(#dashboard):not(#reservation-table) {
+    padding: 2rem 1.5rem !important;
+    margin: 1.5rem auto !important;
+  }
+  
+  #reservation-table {
+    padding: 1.5rem !important;
+    margin: 1.5rem auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+  #dashboard {
+    padding: 1rem !important;
+  }
+  
+  #dashboard h1 {
+    font-size: 1.5rem;
+  }
+  
+  .container-fluid h2 {
+    font-size: 1.25rem;
+  }
+  
+  .btn {
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+  }
+  
+  /* Table responsive */
+  .table-responsive {
+    border-radius: var(--border-radius);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
+  
+  .table {
+    font-size: 0.875rem;
+  }
+  
+  .table thead th,
+  .table tbody td {
+    padding: 0.875rem 0.5rem;
+  }
+  
+  .table tbody td:last-child {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .btn {
+    width: 100%;
+    padding: 0.5rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #dashboard > .container-fluid:not(#dashboard):not(#reservation-table) {
+    padding: 1.5rem 1rem !important;
+  }
+  
+  #reservation-table {
+    padding: 1rem !important;
+  }
+  
+  .table thead th {
+    font-size: 0.8rem;
+    padding: 0.75rem 0.25rem;
+  }
+  
+  .table tbody td {
+    padding: 0.75rem 0.25rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* Animations subtiles */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+#dashboard > * {
+  animation: fadeInUp 0.6s ease-out backwards;
+}
+
+#dashboard h1 {
+  animation-delay: 0.1s;
+}
+
+#dashboard > .container-fluid:not(#dashboard):not(#reservation-table),
+#reservation-table {
+  animation-delay: 0.3s;
+}
+
+/* États de statut */
+.status-active {
+  color: var(--success-green);
+  font-weight: 600;
+}
+
+.status-pending {
+  color: var(--yellow-accent);
+  font-weight: 600;
+}
+
+.status-cancelled {
+  color: var(--danger-red);
+  font-weight: 600;
+}
+
+/* Focus states pour l'accessibilité */
+.btn:focus-visible {
+  outline: 2px solid var(--yellow-accent);
+  outline-offset: 2px;
 }

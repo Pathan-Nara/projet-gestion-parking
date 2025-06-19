@@ -48,9 +48,9 @@
     }
 
 
-    function addReservation($pdo, $placeId, $vehiculeId, $userId, $debut, $fin, $prix) {
-        
-        $query = "INSERT INTO reservations (place_id, user_id, voiture_id, arrive, depart, prix, status) VALUES (:placeId, :userId, :vehiculeId, :debut, :fin, :prix, 'en_cours')";
+    function addReservation($pdo, $placeId, $vehiculeId, $userId, $debut, $fin, $prix, $is_paid = 0) {
+
+        $query = "INSERT INTO reservations (place_id, user_id, voiture_id, arrive, depart, status, prix, archived, is_paid) VALUES (:placeId, :userId, :vehiculeId, :debut, :fin, 'en cours', :prix, 0, :is_paid)";
         $prep = $pdo->prepare($query);
         $prep->bindValue(':placeId', $placeId, PDO::PARAM_INT);
         $prep->bindValue(':vehiculeId', $vehiculeId, PDO::PARAM_INT);
@@ -58,10 +58,11 @@
         $prep->bindValue(':debut', $debut, PDO::PARAM_STR);
         $prep->bindValue(':fin', $fin, PDO::PARAM_STR);
         $prep->bindValue(':prix', $prix, PDO::PARAM_STR);
+        $prep->bindValue(':is_paid', $is_paid, PDO::PARAM_INT);
         try {
             $prep->execute();
         } catch (PDOException $e) {
-            return null;
+            return $e->getMessage();
         }
         $prep->closeCursor();
         $query2 = "UPDATE place SET reserved = 1 WHERE id = :placeId";
@@ -70,7 +71,7 @@
         try {
             $prep2->execute();
         } catch (PDOException $e) {
-            return null;
+            return $e->getMessage();
         }
         $prep2->closeCursor();
         return true;

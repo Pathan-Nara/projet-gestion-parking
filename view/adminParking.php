@@ -1,12 +1,8 @@
 <link href="_partials/css/adminParking.css" rel="stylesheet">
 
-<body class="container-fluid" style="background-color:rgb(38, 97, 145); width:100%; margin:0; padding:0; display: flex; justify-content: center; flex-direction:column;" >
     <div class="container" id="dashboard">
         <div class="container-fluid" id="parking-list">
             <h1>Gestion Parking</h1>
-            <div class="container-fluid" style="display: flex; justify-content: end; flex-direction: row;">
-                <input class="form-control" style="width:20%" type="search" placeholder="Chercher un parking" aria-label="Search">
-            </div>
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -25,16 +21,16 @@
                             <td><?php echo htmlspecialchars($parking['lieu']); ?></td>
                             <td><?php echo ($parking['nb_places_voiture'] + $parking['nb_places_moto'] + $parking['nb_places_velo'] + $parking['nb_places_camion']); ?></td>
                             <td>
-                                <div class="btn-grp" style="display:flex; gap: 15px; align-items: center; justify-content: center;">
-                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $parking['id'] ?>" id="edit" style="color: yellow;"></a>
-                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $parking['id'] ?>" style="color: red;"></a>
+                                <div class="btn-grp">
+                                    <a href="#" class="fa-solid fa-pen-to-square edit" data-id="<?php echo $parking['id'] ?>" id="edit"></a>
+                                    <a href="#" class="fa-solid fa-trash delete" data-id="<?php echo $parking['id'] ?>"></a>
                                 </div>    
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
-            <div class="container-fluid" style="display: flex; justify-content: end; flex-direction: row;">
+            <div class="container-fluid">
                 <a href="index.php?component=addParking" class="btn btn-primary">Ajouter un Parking</a>
             </div>
         </div>
@@ -42,7 +38,7 @@
     <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <div class="modal-header bg-primary text-white">
+                <div class="modal-header">
                     <h5 class="modal-title" id="editModalLabel">Modifier les informations du parking</h5>
                     <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
@@ -114,5 +110,4 @@
     </div>
 
 
-</body>
 <script src="_partials/js/adminParking.js"></script>

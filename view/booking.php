@@ -1,6 +1,5 @@
 
 <link href="_partials/css/booking.css" rel="stylesheet"></link>
-<body class="container-fluid" style="background-color:white; width:100%; margin:0; padding:0; display: flex; justify-content: center; flex-direction:column;" >
 
     <div class="container" id="bookingContainer">
         <h1>Voici la liste des Parking disponibles</h1>
@@ -38,7 +37,6 @@
             <?php endif; ?>
         </div>
     </div>
-</body>
 
 <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -101,8 +99,6 @@
         </div>
 
         <form id="payment-form">
-          <div id="card-element" class="mb-3"></div>
-          <div id="card-errors" class="text-danger mb-3"></div>
           <button id="submit-payment" class="btn btn-primary w-100">Payer maintenant</button>
           <button id="register-reservation" class="btn btn-secondary w-100 mt-2">Payer plus tard</button>
         </form>
@@ -111,5 +107,20 @@
   </div>
 </div>
 
+<div class="modal fade" id="stripeModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
+    <h1>EHRGJGTNJTBIRTHJBFOJIDVBHFVIOIOVJBHBJVRBHBORIBHJROIJBGFIOVHBJ</h1>
+    <form id="payment-form">
+        <div id="card-element"><!-- Stripe injecte ici --></div>
+        <div id="payment-message" style="color: red;"></div>
+        <button type="submit">Payer</button>
+    </form>
+</div>
+
+
+<script>
+    const PRIVATE_STRIPE = "<?php echo $_ENV['PRIVATE_STRIPE']; ?>";
+    const PUBLIC_STRIPE = "<?php echo $_ENV['PUBLIC_STRIPE']; ?>";
+</script>
 
 <script type="module" src="_partials/js/booking.js"></script>
+<script src="https://js.stripe.com/v3/"></script>

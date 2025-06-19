@@ -1,6 +1,4 @@
-
-<body class="container-fluid" style="background-color:rgb(38, 97, 145); width:100%; margin:0; padding:0; display: flex; justify-content: center; flex-direction:column;" >
-
+<link rel="stylesheet" href="partials/css/registerCar.css">
     <div class="card mt-5" style="width: 50%; margin: auto; border-radius: 25px; background-color: #0078d7; padding: 20px; margin-bottom: 50px;">
         <h3 class="card-title text-center" style="color: white;">Enregistrement d'un Véhicule</h3>
         <form id="registerCar">
@@ -42,8 +40,6 @@
             </div>
         </form>
     </div>
-
-</body>
 
 <script src="_partials/js/registerCar.js"></script>
 

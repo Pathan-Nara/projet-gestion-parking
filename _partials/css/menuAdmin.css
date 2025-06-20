@@ -1,0 +1,438 @@
+/* Import Google Fonts et Font Awesome */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css');
+
+/* Variables CSS cohérentes avec le design système */
+:root {
+  --primary-blue: #2E5F8C;
+  --secondary-blue: #4A90BF;
+  --accent-blue: #87CEEB;
+  --dark-blue: #1E3A52;
+  --light-blue: #E6F3FF;
+  --white: #FFFFFF;
+  --light-gray: #F8F9FA;
+  --border-gray: #E1E5E9;
+  --text-dark: #2C3E50;
+  --yellow-accent: #FFD700;
+  --yellow-hover: #FFC700;
+  --success-green: #10B981;
+  --danger-red: #EF4444;
+  --purple-accent: #8B5CF6;
+  --orange-accent: #FF8C00;
+  --shadow: 0 10px 25px rgba(46, 95, 140, 0.15);
+  --shadow-hover: 0 15px 35px rgba(46, 95, 140, 0.25);
+  --shadow-card: 0 8px 32px rgba(46, 95, 140, 0.12);
+  --gradient: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+  --gradient-light: linear-gradient(135deg, rgba(46, 95, 140, 0.1) 0%, rgba(74, 144, 191, 0.1) 100%);
+  --gradient-admin: linear-gradient(135deg, var(--purple-accent) 0%, var(--primary-blue) 100%);
+  --border-radius: 16px;
+  --border-radius-lg: 20px;
+  --border-radius-xl: 24px;
+  --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Reset et styles de base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  background: var(--gradient) !important;
+  min-height: 100vh;
+  color: var(--text-dark);
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background animé avec particules admin */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 15% 85%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+    radial-gradient(circle at 85% 15%, rgba(255, 215, 0, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 140, 0, 0.05) 0%, transparent 50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Container principal du dashboard admin */
+#dashboard {
+  padding: 2rem !important;
+  min-height: calc(100vh - 130px);
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: 
+    radial-gradient(circle at 30% 70%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 70% 30%, rgba(139, 92, 246, 0.1) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* Container du menu principal */
+#dashboard-menu {
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(30px) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: var(--border-radius-xl) !important;
+  padding: 3rem 2rem !important;
+  box-shadow: var(--shadow-card) !important;
+  position: relative;
+  overflow: hidden;
+  max-width: 800px;
+  width: 100%;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+#dashboard-menu::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  background: var(--gradient-admin);
+}
+
+#dashboard-menu::after {
+  content: '⚙️';
+  position: absolute;
+  top: 2rem;
+  right: 2rem;
+  font-size: 2rem;
+  opacity: 0.1;
+  pointer-events: none;
+}
+
+/* Titre principal */
+#dashboard-menu h1 {
+  color: var(--white);
+  font-size: 2.5rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3rem;
+  text-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  z-index: 2;
+}
+
+#dashboard-menu h1::after {
+  content: '';
+  position: absolute;
+  bottom: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 120px;
+  height: 4px;
+  background: linear-gradient(90deg, var(--purple-accent) 0%, var(--yellow-accent) 100%);
+  border-radius: 2px;
+}
+
+/* Container des options admin */
+#admin-options {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  position: relative;
+  z-index: 2;
+}
+
+#admin-options .container-fluid {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Boutons admin stylisés */
+.btn-admin {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem 2rem;
+  border: none;
+  border-radius: var(--border-radius-lg);
+  font-size: 1.1rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: var(--transition);
+  position: relative;
+  overflow: hidden;
+  min-width: 280px;
+  min-height: 120px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.95);
+  color: var(--text-dark);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.btn-admin::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+  transition: left 0.6s;
+}
+
+.btn-admin:hover::before {
+  left: 100%;
+}
+
+/* Icônes et couleurs spécifiques pour chaque bouton */
+.admin-option:nth-child(1) {
+  border-left: 6px solid var(--success-green);
+}
+
+.admin-option:nth-child(1)::after {
+  content: '👥';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.admin-option:nth-child(1):hover {
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.1) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-left-color: var(--success-green);
+  box-shadow: 0 15px 40px rgba(16, 185, 129, 0.2);
+}
+
+.admin-option:nth-child(2) {
+  border-left: 6px solid var(--orange-accent);
+}
+
+.admin-option:nth-child(2)::after {
+  content: '🚗';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.admin-option:nth-child(2):hover {
+  background: linear-gradient(135deg, rgba(255, 140, 0, 0.1) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-left-color: var(--orange-accent);
+  box-shadow: 0 15px 40px rgba(255, 140, 0, 0.2);
+}
+
+/* Deuxième rangée */
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(1) {
+  border-left: 6px solid var(--purple-accent);
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(1)::after {
+  content: '📅';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(1):hover {
+  background: linear-gradient(135deg, rgba(139, 92, 246, 0.1) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-left-color: var(--purple-accent);
+  box-shadow: 0 15px 40px rgba(139, 92, 246, 0.2);
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(2) {
+  border-left: 6px solid var(--secondary-blue);
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(2)::after {
+  content: '🅿️';
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(2):hover {
+  background: linear-gradient(135deg, rgba(74, 144, 191, 0.1) 0%, rgba(255, 255, 255, 0.95) 100%);
+  border-left-color: var(--secondary-blue);
+  box-shadow: 0 15px 40px rgba(74, 144, 191, 0.2);
+}
+
+/* Effets hover génériques */
+.btn-admin:hover {
+  transform: translateY(-5px) scale(1.02);
+  color: var(--text-dark);
+  text-decoration: none;
+}
+
+.btn-admin:active {
+  transform: translateY(-2px) scale(1.01);
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animation des boutons avec délai progressif */
+.admin-option:nth-child(1) {
+  animation: fadeInUp 0.6s ease-out 0.2s both;
+}
+
+.admin-option:nth-child(2) {
+  animation: fadeInUp 0.6s ease-out 0.4s both;
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(1) {
+  animation: fadeInUp 0.6s ease-out 0.6s both;
+}
+
+#admin-options .container-fluid:nth-child(2) .admin-option:nth-child(2) {
+  animation: fadeInUp 0.6s ease-out 0.8s both;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  #dashboard {
+    padding: 1.5rem !important;
+  }
+  
+  #dashboard-menu {
+    padding: 2.5rem 1.5rem !important;
+  }
+  
+  .btn-admin {
+    min-width: 250px;
+  }
+}
+
+@media (max-width: 992px) {
+  #dashboard-menu h1 {
+    font-size: 2rem;
+  }
+  
+  #admin-options .container-fluid {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .btn-admin {
+    min-width: 300px;
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  #dashboard {
+    padding: 1rem !important;
+  }
+  
+  #dashboard-menu {
+    padding: 2rem 1rem !important;
+  }
+  
+  #dashboard-menu h1 {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  #admin-options {
+    gap: 1.5rem;
+  }
+  
+  .btn-admin {
+    min-height: 100px;
+    font-size: 1rem;
+    padding: 1.25rem 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  #dashboard-menu h1 {
+    font-size: 1.5rem;
+  }
+  
+  .btn-admin {
+    min-width: 100%;
+    min-height: 80px;
+    font-size: 0.9rem;
+    padding: 1rem;
+  }
+  
+  .btn-admin::after {
+    top: 0.75rem;
+    right: 0.75rem;
+    font-size: 1.25rem;
+  }
+}
+
+/* Focus states pour l'accessibilité */
+.btn-admin:focus-visible {
+  outline: 3px solid var(--yellow-accent);
+  outline-offset: 3px;
+}
+
+/* États de chargement */
+.btn-admin.loading {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.btn-admin.loading::after {
+  content: '';
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--text-dark);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+  0% { transform: translate(-50%, -50%) rotate(0deg); }
+  100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* Amélioration de l'accessibilité */
+.btn-admin:focus {
+  outline: none;
+}
+
+.btn-admin:focus-visible {
+  outline: 3px solid var(--yellow-accent);
+  outline-offset: 2px;
+}

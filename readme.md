@@ -1,5 +1,9 @@
 ParkEase – Site de Gestion de Parking
 
+DISCLAIMER
+
+Je prèfere être franc directement (dans tout les cas ca se verra lorsque vous analyserez le code) mais le code n'est pas clean dans le sens ou il y'a encore des console.log de test un peu partout et des parties de codes en annotations (evidemment cela n'impacte pas le bon fonctionnement du projet, le projet est entiermenet fonctionnel mais ce sont des consols.log experimentaux) et aussi surtout le css est entierement redigé par IA. Vous pouvez trouver dans les anciens commit des versions "fait maison" mais le css actuel n'est absolument pas rediger de main propre. De plus la coherence des dossiers et nom des dossier n'est pas correct c'est a dire que vous trouverez les dossiers css et js dans le dossier _partials alors qu'il devrait se trouver dans le dossier assets par exemple.
+
 DESCRIPTION
 
 ParkEase est une application web de gestion de parking.

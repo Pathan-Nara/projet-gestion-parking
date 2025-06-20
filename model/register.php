@@ -15,7 +15,7 @@
             $prep->closeCursor();
             return true;
         } catch (PDOException $e) {
-            return "Erreur";
+            return "Erreur" . $e->getMessage();
         }
     }
 

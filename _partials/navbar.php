@@ -21,7 +21,7 @@
                     <button type="button" class="btn btn-outline-secondary btn-nav">ParkEase Gold</button>
                 </li> -->
                 <li class="nav-item">
-                    <a class="nav-link a-nav" href="#" id="profil">
+                    <a class="nav-link a-nav" href="index.php?component=profil" id="profil">
                         <i class="nav-link fa-solid fa-user"></i>
                     </a>
                 </li>

@@ -167,7 +167,6 @@
                     $is_paid = 1;
                     var_dump("userId: $userId, parkingId: $parkingId, vehiculeId: $vehiculeId, placeId: $placeId, type: $type, heureDebut: $heureDebut, heureFin: $heureFin, dateDebut: $dateDebut, dateFin: $dateFin, prix: $prix");
                     if($type == 'day') {
-                        var_dump(addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid));
                         // if(addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid) == true){
                         //     var_dump("Réservation ajoutée avec succès");
                         // }else{

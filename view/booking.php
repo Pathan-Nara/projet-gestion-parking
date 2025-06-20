@@ -107,15 +107,6 @@
   </div>
 </div>
 
-<div class="modal fade" id="stripeModal" tabindex="-1" aria-labelledby="editPaymentModalLabel" aria-hidden="true">
-    <h1>EHRGJGTNJTBIRTHJBFOJIDVBHFVIOIOVJBHBJVRBHBORIBHJROIJBGFIOVHBJ</h1>
-    <form id="payment-form">
-        <div id="card-element"><!-- Stripe injecte ici --></div>
-        <div id="payment-message" style="color: red;"></div>
-        <button type="submit">Payer</button>
-    </form>
-</div>
-
 
 <script>
     const PRIVATE_STRIPE = "<?php echo $_ENV['PRIVATE_STRIPE']; ?>";

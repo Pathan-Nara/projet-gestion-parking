@@ -52,7 +52,7 @@
                             <?php if($res['is_paid'] == 1): ?>
                                 <div id="note" data-parking-id="<?php echo $res['id']; ?>" data-user-id="<?php echo $_SESSION['id']; ?>">
                                     <label for="rating_<?php echo $res['id']; ?>">Note (0-5):</label>
-                                    <input type="number" id="noteValue" name="rating" min="0" max="5" step="1" class="form-control" style="width: 80px; display: inline-block;">
+                                    <input type="number" id="noteValue" name="rating" min="0" max="5" step="1" class="form-control">
                                     <button class="btn btn-primary rate-btn" id="notationBtn">Noter</button>
                                 </div>
                             <?php else: ?>

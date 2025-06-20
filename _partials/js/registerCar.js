@@ -29,7 +29,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     form.addEventListener("submit", async (e) => {
         e.preventDefault();
-        console.log(modele.value, marque.value, immatriculation.value, motorisation.value);
         registerCar(modele.value, marque.value, immatriculation.value, motorisation.value, type.value)
         window.location.href = "index.php?component=home";
     })

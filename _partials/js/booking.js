@@ -16,7 +16,6 @@ const reservation = {
 async function initStripePayment(infos){
     const stripe = Stripe(PUBLIC_STRIPE);
     const formData = new URLSearchParams();
-    formData.append("prix", infos);
     formData.append("parkingId", infos.parkingId),
     formData.append("vehicule", infos.vehicule),
     formData.append("place", infos.place),
@@ -35,8 +34,6 @@ async function initStripePayment(infos){
             body: formData,
         });
         const data = await response.json();
-
-        console.log("Réponse de la création de session Stripe:", data);
 
         if(data.id){
             stripe.redirectToCheckout({

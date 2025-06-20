@@ -61,4 +61,32 @@
         return true;
     }
 
+    function getReservationById($pdo, $reservationId) {
+        $query = "SELECT * FROM reservations WHERE reservation_id = :reservationId";
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':reservationId', $reservationId, PDO::PARAM_INT);
+        try {
+            $prep->execute();
+        } catch (PDOException $e) {
+            return "Erreur de connexion : " . $e->getMessage();
+        }
+        $response = $prep->fetch(PDO::FETCH_ASSOC);
+        $prep->closeCursor();
+        return $response;
+    }
+
+    function updateReservationAsPaid($pdo, $reservationId, $userId) {
+        $query = "UPDATE reservations SET is_paid = 1 WHERE reservation_id = :reservationId AND user_id = :userId";
+        $prep = $pdo->prepare($query);
+        $prep->bindValue(':reservationId', $reservationId, PDO::PARAM_INT);
+        $prep->bindValue(':userId', $userId, PDO::PARAM_INT);
+        try {
+            $prep->execute();
+        } catch (PDOException $e) {
+            return "Erreur de connexion : " . $e->getMessage();
+        }
+        $prep->closeCursor();
+        return true;
+    }
+
 ?>

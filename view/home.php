@@ -27,6 +27,7 @@
                                 <th>Date de fin</th>
                                 <th>Prix total</th>
                                 <th>Status</th>
+                                <th>Payé ?</th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -38,14 +39,20 @@
                                     <td><?php echo date("d/m/Y", $res['arrive']); ?></td>
                                     <td><?php echo date("d/m/Y", $res['depart']); ?></td>
                                     <td><?php echo $res['prix']; ?> €</td>
-                                    <td><?php echo $res['status'] ?></td>
+                                    <td><span class="badge bg-warning"><?php echo $res['status'] ?></span></td>
+                                    <?php if($res['is_paid'] == 0): ?>
+                                        <td> <span class="badge bg-warning">Non payé</span></td>
+                                    <?php else: ?>
+                                        <td> <span class="badge bg-success">Payée</span></td>
+                                    <?php endif; ?>
                                     <td>
                                         <?php if($res['status'] == 'annulée'): ?>
                                             <a href="#" id="archived" data-reservation-id="<?php echo $res['reservation_id'] ?>" class="btn btn-danger">Archiver</a>
-                                        <?php elseif($res['status'] == 'payée'): ?>
-                                            <span class="badge bg-success">Payée</span>
+                                        <?php elseif($res['is_paid'] == 1): ?>
+                                            <span class="badge bg-success">Réservation payée</span>
+                                            <a href="#" id="archived" data-reservation-id="<?php echo $res['reservation_id'] ?>" class="btn btn-danger">Archiver</a>
                                         <?php else: ?>
-                                            <a href="#" id="book" class="btn btn-success">Payer</a>
+                                            <a href="#" id="book" data-reservation-id="<?php echo $res['reservation_id'] ?>" class="btn btn-success">Payer</a>
                                             <a href="#" id="cancel" data-place-id="<?php echo $res["place_id"] ?>" data-reservation-id="<?php echo $res['reservation_id'] ?>" class="btn btn-danger">Annuler</a>
                                         <?php endif; ?>
                                     </td>
@@ -57,5 +64,9 @@
             <?php endif; ?>
     </div>
 
-
+<script>
+    const PRIVATE_STRIPE = "<?php echo $_ENV['PRIVATE_STRIPE']; ?>";
+    const PUBLIC_STRIPE = "<?php echo $_ENV['PUBLIC_STRIPE']; ?>";
+</script>
+<script src="https://js.stripe.com/v3/"></script>
 <script src="_partials/js/home.js"></script>

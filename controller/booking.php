@@ -175,6 +175,7 @@
                         // };
                     } else {
                         addReservation($pdo, $placeId, $vehiculeId, $userId, $heureDebut, $heureFin, $prix, $is_paid);
+                        header("Location: index.php?component=booking");
                     }
                 }   
             }   

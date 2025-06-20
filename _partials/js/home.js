@@ -1,3 +1,59 @@
+async function getReservations(reservationId) {
+    const formData = new URLSearchParams();
+    formData.append("id", reservationId);
+    try {
+        const response = await fetch("index.php?component=home&action=getReservations", {
+            method: "POST",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData
+        });
+        const data = await response.json();
+        if (data.success) {
+            return data.reservation;
+        }
+    }
+    catch (error) {
+        console.error("Erreur lors de la récupération des réservations :", error);
+        alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
+    }
+}
+
+async function initStripePayment(reservationId, prix) {
+    const stripe = Stripe(PUBLIC_STRIPE);
+    const formData = new URLSearchParams();
+    formData.append("id", reservationId);
+    formData.append("prix", prix);
+
+    try {
+        const response = await fetch("index.php?component=home&action=payment", {
+            method: "POST",
+            headers: {
+                'X-Requested-With': 'XMLHttpRequest',
+            },
+            body: formData
+        });
+
+        const data = await response.json();
+
+        if(data.id){
+
+            stripe.redirectToCheckout({
+                sessionId: data.id
+            })
+        } else {
+            alert("Erreur lors de la création de session Stripe : " + data.error);
+        }
+    }
+
+    catch (error) {
+        console.error("Erreur lors de l'initialisation du paiement Stripe :", error);
+        alert("Une erreur s'est produite. Veuillez réessayer plus tard.");
+    }
+
+}
+
 async function cancelReservation(reservationId, placeId) {
     const formData = new URLSearchParams();
     formData.append("placeId", placeId);
@@ -55,6 +111,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const addReservationBtn = document.getElementById("addReservationBtn");
     const cancelBtn = document.querySelectorAll("#cancel");
     const archiveBtn = document.querySelectorAll("#archived");
+    const bookBtn = document.querySelectorAll("#book");
 
     addReservationBtn.addEventListener("click", () => {
         window.location.href = "?component=booking";
@@ -80,6 +137,19 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reservationId = button.getAttribute("data-reservation-id");
                 archive(reservationId);
             }
+        });
+    });
+
+    bookBtn.forEach(button => {
+        button.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const reservationId = button.getAttribute("data-reservation-id");
+            reservation = await getReservations(reservationId)
+            console.log(reservation);
+            const prix = reservation.prix;
+
+            initStripePayment(reservationId, prix)
+            
         });
     });
     

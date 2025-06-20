@@ -15,7 +15,7 @@
                     <button type="button" class="btn btn-outline-secondary btn-nav">Parking a Proximité</button>
                 </li> -->
                 <li class="nav-item">
-                    <button type="button" class="btn btn-outline-secondary btn-nav">Historiques des reservations</button>
+                    <a type="button" href="index.php?component=historiqueRes" class="btn btn-outline-secondary btn-nav">Historiques des reservations</a>
                 </li>
                 <!-- <li class="nav-item">
                     <button type="button" class="btn btn-outline-secondary btn-nav">ParkEase Gold</button>

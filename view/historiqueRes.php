@@ -9,7 +9,7 @@
                 <tr>
                     <th>Parking</th>
                     <th>Evaluation Parking</th>
-                    <th>Type de véhicule</th>
+                    <th>Id du vehicule</th>
                     <th>Date de début</th>
                     <th>Date de fin</th>
                     <th>Prix total</th>

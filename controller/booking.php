@@ -1,7 +1,6 @@
 <?php
 
     require "model/booking.php";
-    require "model/payment.php";
 
     $parkings = getParking($pdo);
     $reservation = [];
@@ -165,13 +164,9 @@
                     $dateFin = $metadata->date_fin ? strtotime($metadata->date_fin) : null;
                     $prix = $metadata->prix;
                     $is_paid = 1;
-                    var_dump("userId: $userId, parkingId: $parkingId, vehiculeId: $vehiculeId, placeId: $placeId, type: $type, heureDebut: $heureDebut, heureFin: $heureFin, dateDebut: $dateDebut, dateFin: $dateFin, prix: $prix");
                     if($type == 'day') {
-                        // if(addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid) == true){
-                        //     var_dump("Réservation ajoutée avec succès");
-                        // }else{
-                        //     var_dump("Erreur lors de l'ajout de la réservation");
-                        // };
+                        addReservation($pdo, $placeId, $vehiculeId, $userId, $dateDebut, $dateFin, $prix, $is_paid);
+                        header("Location: index.php?component=booking");
                     } else {
                         addReservation($pdo, $placeId, $vehiculeId, $userId, $heureDebut, $heureFin, $prix, $is_paid);
                         header("Location: index.php?component=booking");
